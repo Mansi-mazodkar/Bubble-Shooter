@@ -708,6 +708,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Create floating particles
             function createParticles() {
                 const container = document.getElementById('particles');
                 if (container.children.length > 0) return;
@@ -725,6 +726,7 @@
                 }
             }
 
+            // DOM Elements
             const welcomeScreen = document.getElementById('welcome-screen');
             const levelSelectionScreen = document.getElementById('level-selection-screen');
             const gameScreen = document.getElementById('game-screen');
@@ -846,6 +848,7 @@
                 const levelData = LEVELS.find(l => l.level === levelNumber);
                 if (!levelData) return;
 
+                // Setup canvas
                 const containerWidth = Math.min(gameScreen.clientWidth, 420) - 40; // Subtract padding
                 const canvasWidth = Math.max(containerWidth, 300);
                 const canvasHeight = Math.floor(canvasWidth * 1.4);
@@ -855,6 +858,7 @@
                 
                 BUBBLE_RADIUS = Math.floor(canvasWidth / (COLS * 2.15));
 
+                // Reset game state
                 score = 0;
                 shotsLeft = levelData.shots;
                 gameOver = false;
@@ -867,6 +871,7 @@
                 
                 animationFrameId = null;
 
+                // Reset UI
                 levelDisplay.textContent = levelData.level;
                 scoreElement.textContent = '0';
                 shotsLeftElement.textContent = shotsLeft;
@@ -874,6 +879,7 @@
                 hintButton.classList.remove('opacity-50', 'cursor-not-allowed');
                 hideMessage();
                 
+                // Create game grid and bubbles
                 createGrid(levelData.rows);
                 shooterBubble = createBubble();
                 nextShooterBubble = createBubble();
@@ -1145,7 +1151,7 @@
 
                 for (const { dr, dc } of directions) {
                     const newRow = row + dr;
-                    const newCol = col + DynamicsCompressorNode;
+                    const newCol = col + dc;
                     const maxCols = (newRow % 2 === 0) ? COLS : COLS - 1;
                     
                     if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < maxCols) {
@@ -1238,7 +1244,7 @@
                 
                 ctx.save();
                 
-                const gradientt = ctx.createRadialGradient(
+                const gradient = ctx.createRadialGradient(
                     bubble.x - bubble.radius * 0.3, bubble.y - bubble.radius * 0.3, 0,
                     bubble.x, bubble.y, bubble.radius
                 );
@@ -1447,6 +1453,7 @@
                 shoot(fakeEvent);
             }, { passive: false });
             
+            // Initial Game Load
             function init() {
                 createParticles();
                 loadProgress();
@@ -1458,4 +1465,3 @@
     </script>
 </body>
 </html>
-
