@@ -1145,7 +1145,7 @@
 
                 for (const { dr, dc } of directions) {
                     const newRow = row + dr;
-                    const newCol = col + dc;
+                    const newCol = col + DynamicsCompressorNode;
                     const maxCols = (newRow % 2 === 0) ? COLS : COLS - 1;
                     
                     if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < maxCols) {
